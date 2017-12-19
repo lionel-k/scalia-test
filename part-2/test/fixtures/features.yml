@@ -5,11 +5,13 @@
 # below each fixture, per the syntax in the comments below
 #
 one: {
-  name: "Size"
+  id: 1,
+  name: "size"
 }
 # column: value
 #
 two: {
-  name: "Height"
+  id: 2,
+  name: "height"
 }
 # column: value
