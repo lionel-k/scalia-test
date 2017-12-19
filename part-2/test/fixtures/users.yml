@@ -11,3 +11,6 @@ one: {
 #
 two: {}
 # column: value
+
+toto:
+  email: "toto@mail.com"
