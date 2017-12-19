@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>All Products</h1>
+  <table class="blueTable">
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <% @feature_names.each do |name| %>
+        <th><%= name %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <% @result.each do |product| %>
+    <tbody>
+      <tr class="product">
+        <td>Product #<%= product[:id] %></td>
+        <% @feature_names.each do |name| %>
+        <td><%= product[:features][name] %></td>
+        <% end %>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+</div>
+
+

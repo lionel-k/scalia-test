@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Product <%= @product.id %></h1>
+  <h2>Add attributes</h2>
+  <%= simple_form_for [@product, @product_feature] do |f| %>
+  <%= f.association :feature, collection: Feature.all.order(:name), prompt: "Choose an attribute" %>
+
+  <%= f.input :description %>
+  <%= f.submit "Add an attribute", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+
+<hr>
+<div class="container">
+  <h4>Attributes</h4>
+  <ul>
+    <% @product_features.each do |product_feature| %>
+    <li><%= product_feature.feature.name %> -
+      <%= product_feature.description %>
+    </li>
+    <% end %>
+  </ul>
+</div>
