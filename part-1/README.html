@@ -723,6 +723,26 @@ pre {
 }
 </style><title>README</title></head><body><article class="markdown-body"><h2>
 <a id="user-content-scalia-full-stack-test---part-1" class="anchor" href="#scalia-full-stack-test---part-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scalia Full Stack test - Part 1</h2>
+<p>The Ruby/ActiveRecord to render the variable could be</p>
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  has_many <span class="pl-c1">:products</span>
+
+  <span class="pl-k">def</span> <span class="pl-en">products_details</span>
+    result <span class="pl-k">=</span> {}
+    products <span class="pl-k">=</span> []
+    result[<span class="pl-s"><span class="pl-pds">'</span>user_id<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-c1">self</span>.id
+    result[<span class="pl-s"><span class="pl-pds">'</span>username<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-c1">self</span>.username
+    products <span class="pl-k">=</span> <span class="pl-c1">self</span>.products.includes(<span class="pl-c1">:prices</span>).map <span class="pl-k">do</span> |<span class="pl-smi">product</span>|
+      { <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>: product.id,
+        <span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>: product.name,
+        <span class="pl-s"><span class="pl-pds">'</span>size<span class="pl-pds">'</span></span>: product.size,
+        <span class="pl-s"><span class="pl-pds">'</span>prices<span class="pl-pds">'</span></span>: product.prices.map { |<span class="pl-smi">price</span>| { <span class="pl-s"><span class="pl-pds">'</span>currency<span class="pl-pds">'</span></span>: price.currency, <span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span>: price.value } }
+      }
+    <span class="pl-k">end</span>
+    result[<span class="pl-s"><span class="pl-pds">'</span>products<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> products
+    result
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
 <p>To test the app:</p>
 <ul>
 <li>Clone The project</li>
@@ -733,6 +753,8 @@ pre {
 <li>Run <code>rake console</code>
 </li>
 <li>Run <code>User.first.products_details</code>
+</li>
+<li>Run <code>User.second.products_details</code>
 </li>
 </ul>
 </article></body></html>
