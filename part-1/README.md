@@ -7,3 +7,4 @@ To test the app:
 - Run `rake db:create` / `rake db:migrate` / `rake db:seed`
 - Run `rake console`
 - Run `User.first.products_details`
+- Run `User.second.products_details`
